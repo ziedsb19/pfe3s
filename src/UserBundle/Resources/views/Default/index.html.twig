@@ -1,0 +1,86 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-1"></div>
+    {% for message in app.flashes('delete') %}
+        <div class="col-sm-10 alert alert-danger"> {{ message }} 
+            <button type="button" class=" float-right close" onclick="closeParent(this)" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script>
+                window.onload = function () {
+                    closeParent = function (item) {
+                        item.parentElement.hidden = true;
+                    }
+                }
+            </script>
+        </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    {% for message in app.flashes('modif') %}
+        <div class="col-sm-10 alert alert-success"> {{ message }} 
+            <button type="button" class=" float-right close" onclick="closeParent(this)" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script>
+                window.onload = function () {
+                    closeParent = function (item) {
+                        item.parentElement.hidden = true;
+                    }
+                }
+            </script>
+        </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="mb">
+            <h2 class="" style="color: #222; font-weight: bolder; font-size: large; "><i class="fa fa-users"></i> liste des utilisateurs </h2>
+        </div>
+        <hr>
+        <div class="content-panel col-sm-12">
+            <table class="table mt">
+                <thead>
+                    <th width="10%"><i class="fa fa-user"></i> username </th>
+                    <th width="10%"><i class="fa fa-envelope"></i> mail </th>
+                    <th width="10%"><i class="fa fa-id-card"></i> nom </th>
+                    <th width="10%"><i class="fa fa-id-card-o"></i> prenom </th>
+                    <th width="10%"><i class="fa fa-map-marker"></i> adresse </th>
+                    <th width="10%"><i class="fa fa-phone"></i> phone </th>
+                    <th width="10%"><i class="fa fa-unlock-alt"></i> is_admin</th>
+                    <th> </th>
+
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td class="text-truncate">{{ user.email }}</td>
+                        <td>{% if user.nom !=null %} {{ user.nom }} {% else %} not defined {% endif %}</td>
+                        <td>{% if user.prenom !=null %} {{ user.prenom }} {% else %} not defined {% endif %}</td>
+                        <td>{% if user.adresse !=null %} {{ user.adresse }} {% else %} not defined {% endif %} </td>
+                        <td>{% if user.tel !=null %} {{ user.tel }} {% else %} not defined {% endif %}</td>
+                        <td>{% if user.superAdmin ==1 %} true {% else %} false {% endif %} </td>
+                        <td>
+                            <a class=" " style="margin-right: 1.5rem;" href="{{path('user_delete_id', {id:user.id})}}"> <i
+                                    class="fa fa-trash text-danger" style="font-size: medium;"></i> </a>
+                            <a class="" href="{{path('user_update', {id:user.id})}}"> <i
+                                    class="fa fa-cogs text-success"></i> </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <div class="col-sm-6">
+                <a class="btn btn-primary mb" href="{{path('user_add')}}"><i class="fa fa-plus "></i> ajouter un
+                    utilisateur </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

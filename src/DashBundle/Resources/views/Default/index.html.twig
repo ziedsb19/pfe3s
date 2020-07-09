@@ -1,0 +1,232 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="row mb">
+    <div class="col-sm-1"> </div>
+    <div id="" class="col-sm-10">
+        <div class="row">
+            <h1 class="col-sm-6" style="color: #222; font-weight: bolder; font-size: large;"><i class="fa fa-bar-chart"></i> BSS informations : </h1>
+            <form action="" method="post" class="col-sm-12" style="margin-top:1rem;">
+                <div class="row">
+                    <div class=" col-sm-9">
+                        <select class="form-control" name="bss">
+                            {% for b in all %}
+                            <option value="{{ b.lrrid | lower }}" {% if b.lrrid| upper == bss.lrrid %} selected {% endif %}> {{ b.name | upper }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary col-sm-12" id="valid"> change station <i class="fa fa-wifi"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr>
+    </div>
+</div>
+
+
+<div class=" row mt">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="col-md-12 col-sm-12 mb">
+                    <div class="weather pn">
+                      <i class="fa fa-wifi fa-4x"></i>
+                      <h2 style="font-size: large;">{{ one.name }}</h2>
+                      <h4 style="font-size: medium;">{{ one.model }}</h4>
+                      <h4 style="font-size: medium;">{{ one.state }}</h4>
+                    </div>
+                  </div>
+            </div>
+            <div class="panel-body text-center col-sm-7">
+                <canvas id="line" height="250px" width="550"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class=" row mt">
+    <div class="col-sm-1"> </div>
+
+    <div id="" class="col-sm-10">
+        <div class="row ">
+            <div class="col-md-4 mr">
+                <div id="cpu" data-usage="{{ bss.dvcpu }}" data-total="{{ bss.avcpu }}"
+                    class="grey-panel pn donut-chart">
+                    <div class="grey-header">
+                        <h5>Station LOAD</h5>
+                    </div>
+                    <canvas id="serverstatus01" height="120" width="120" style="width: 120px; height: 120px;"></canvas>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6 goleft">
+                            <p>Core<br>Usage:</p>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <h2 id="cpu_text"></h2>
+                        </div>
+                    </div>
+                    <script>
+                        let total_cpu = Number(document.getElementById("cpu").dataset.total);
+                        let used_cpu = Number(document.getElementById("cpu").dataset.usage);
+                        let text_cpu = document.getElementById("cpu_text");
+
+                        text_cpu.textContent = Math.trunc(used_cpu * 100 / total_cpu) + "%";
+
+                        var doughnutData = [{
+                                value: used_cpu,
+                                color: "#FF6B6B"
+                            },
+                            {
+                                value: total_cpu - used_cpu,
+                                color: "#fdfdfd"
+                            }
+                        ];
+                        var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(
+                            doughnutData);
+                    </script>
+                </div>
+            </div>
+            <div id="ram" data-usage="{{ bss.memused }}" data-total="{{ bss.memtotal }}" class="col-md-4 mr">
+                <div class="darkblue-panel pn">
+                    <div class="darkblue-header">
+                        <h5>RAM STATICS</h5>
+                    </div>
+                    <canvas id="serverstatus02" height="120" width="120" style="width: 120px; height: 120px;"></canvas>
+                    <p>free RAM percentage </p>
+                    <footer>
+                        <div class="pull-left">
+                            <h5><i class="fa fa-hdd-o" id="ram_tot"></i></h5>
+                        </div>
+                        <div class="pull-right">
+                            <h5 id="ram_percent"></h5>
+                        </div>
+                    </footer>
+                </div>
+                <script>
+                    let total = Number(document.getElementById("ram").dataset.total);
+                    let used = Number(document.getElementById("ram").dataset.usage);
+                    let text = document.getElementById("ram_percent");
+                    let text2 = document.getElementById("ram_tot");
+
+                    text.textContent = Math.trunc(used * 100 / (total)) + "% used ";
+                    text2.textContent = " " + Math.trunc(total / 1024) + " MB ";
+
+                    var doughnutData = [{
+                            value: used,
+                            color: "#1c9ca7"
+                        },
+                        {
+                            value: total - used,
+                            color: "#f68275"
+                        }
+                    ];
+                    var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(
+                        doughnutData);
+                </script>
+            </div>
+            <div class="col-md-4 col-sm-4 mb">
+                <div class="darkblue-panel pn">
+                    <div class="darkblue-header">
+                        <h5>MXCpu STATICS</h5>
+                    </div>
+                    <h1 class="mt"><i class="fa fa-server fa-3x"></i></h1>
+                    <p>Mxcpu usage</p>
+                    <footer>
+                        <div class="centered">
+                            <h5><i class="fa fa-microchip"></i> {{ bss.mxcpu }}</h5>
+                        </div>
+                    </footer>
+                </div>
+                <!--  /darkblue panel -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=" row mt">
+    <div class="col-sm-1"> </div>
+
+    <div class="col-sm-10">
+        <div class="row">
+            <h1 class="col-sm-6" style="color: #222; font-weight: bolder; font-size: large;"><i class="fa fa-bell"></i> BSS Alarmes : </h1>
+            <form action="" method="get" class="col-sm-12" style="margin-top: 1rem;">
+                <div class="row">
+                    <div class=" col-sm-9">
+                        <input type="text" name="token_alarm" id="token_alarm" class="form-control"
+                            placeholder="enter your token">
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary col-sm-12" id="valid_token"> view alarms <i
+                                class="fa fa-bell"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+</div>
+
+<div class=" row mt mb">
+    <div class="col-sm-1">
+    </div>
+
+    <div class="col-sm-10">
+        <div class="content-panel">
+            <div class="row">
+                <div class="col-sm-11 " style="margin-left: 5rem;">
+                    <table id="alert_table" class="table mb"
+                        data-bss="{% if app.request.get('bss') %} {{app.request.get('bss')}} {% else %} 000031E5 {% endif %}">
+                        <thead>
+                            <th>ref </th>
+                            <th>occurence </th>
+                            <th>last update time </th>
+                            <th>creation time </th>
+                            <th>alarm state </th>
+                            <th>alarm type</th>
+                            <th>acked </th>
+
+                        </thead>
+                        <tbody id="alarm_body">
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="alarm_msg" class="col-sm-11 text-center mb"> please enter your token to view alarms for this station </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var lineChartData = {
+        labels: ["", "", "", "", "", "", ""],
+        datasets: [{
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                data: [65, 59, 90, 81, 56, 55, 40]
+            },
+            {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                data: [28, 48, 40, 19, 96, 27, 100]
+            }
+        ]
+
+    };
+    new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+</script>
+<script src="{{ asset('/js/dash.js') }}"></script>
+
+{% endblock %}

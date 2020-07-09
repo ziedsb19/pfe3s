@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="row mb">
+    <div class="col-lg-1"> </div>
+    <div id="" class="col-lg-8" >
+        <div class="row"> 
+            <h1 class="col-lg-6" style="color: #222; font-weight: bolder; font-size: large;" ><i class="fa fa-road"></i>  heatmap realtime view :</h1>
+            <form action="" class="col-lg-12" style="margin-top: 1rem;">
+                <div class="row">
+                  <div class=" col-lg-9">
+                    <input type="text" id="date_picker" class="form-control" placeholder="please enter time and date" required>
+                  </div> 
+                  <div class="col-lg-3">
+                      <button class="btn btn-success col-lg-12" id="valid"> sort by date time  <i class="fa fa-calendar"></i></button>
+                  </div> 
+                </div>  
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="row"> 
+
+    <div class="col-lg-1"> </div>
+    <div class="col-lg-8" id="map_custom" data-url="{{path('gateway_heatmap_list')}}" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0); height: 63rem;"> </div>
+    <div class="col-lg-2"  style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0); background-color: white; margin-left:1rem; min-height: 63rem; padding: 1rem 1.5rem ;"> 
+        <h4 style="color: black; font-size: medium;"> change time index</h4>
+        <div style="margin-bottom: 1rem;">
+            <small > by clicking on previous and text you can change the date and time of the measure</small>
+        </div>
+        <div class="row">
+
+            <button class="btn btn-primary col-lg-5" id="previous" style="margin-left: 1.3rem; margin-right: 1rem;"><i class="fa fa-arrow-circle-left"></i> prev</button>
+
+            <button class="btn btn-success col-lg-5" id="next" >next     <i class="fa fa-arrow-circle-right"></i> </button>
+        </div>
+
+        <h1 class="text-center" id="actual_date" style="font-size: larger;"></h1>
+
+        <p class="text-center"><small id="number_dates"></small></p>
+    </div>
+    </div>
+    
+<script src="{{asset('js/heatmap_impl.js')}}"></script>
+{% endblock %}

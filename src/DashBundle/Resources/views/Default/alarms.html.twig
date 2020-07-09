@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="row mb">
+    <div class="col-sm-1"> </div>
+    <div id="" class="col-sm-10">
+        <div class="row">
+            <h1 class="col-sm-6" style="color: #222; font-weight: bolder; font-size: large;"><i class="fa fa-bell"></i> BSS alarms  </h1>
+            <form action="" method="get" class="col-sm-12 mt" style="margin-top: 1rem;">
+                <div class="row">
+                    <div class=" col-sm-9">
+                        <input type="text" name="token_alarm" id="token_alarm" class="form-control"
+                            placeholder="enter your token">
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary col-sm-12" id="valid_token"> view alarms <i
+                                class="fa fa-bell"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" row mt">
+    <div class="col-sm-1">
+    </div>
+
+    <div class="col-sm-10">
+        <div class="content-panel">
+            <div class="row">
+                <div class="col-sm-11 " style="margin-left: 5rem;">
+                    <table id="alert_table" class="table mb">
+                        <thead>
+                            <th>ref </th>
+                            <th>occurence </th>
+                            <th>last update time </th>
+                            <th>creation time </th>
+                            <th>alarm state </th>
+                            <th>alarm type</th>
+                            <th>acked </th>
+
+                        </thead>
+                        <tbody id="alarm_body">
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="alarm_msg" class="col-sm-11 text-center mb"> please enter your token to view alarms for this station </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="{{ asset('/js/alarms.js') }}"></script>
+
+{% endblock %}

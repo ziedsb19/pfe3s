@@ -1,0 +1,7 @@
+dash_homepage:
+    path:     /
+    defaults: { _controller: DashBundle:Default:index }
+
+dash_alarms:
+    path:     /alarms
+    defaults: { _controller: DashBundle:Default:alarms }    

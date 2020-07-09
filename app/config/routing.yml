@@ -1,0 +1,12 @@
+dash:
+    resource: "@DashBundle/Resources/config/routing.yml"
+    prefix:   /dash
+
+gateway:
+    resource: "@GatewayBundle/Resources/config/routing.yml"
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+

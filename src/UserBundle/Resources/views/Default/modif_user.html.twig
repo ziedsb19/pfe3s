@@ -1,0 +1,74 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 content-panel" style="padding-top: 2.5rem; padding-bottom: 2.5rem; padding-left: 5rem; padding-right: 5rem; min-height: 60em;">
+        <h2> <i class="fa fa-edit"></i> modifier vos informations :</h2>
+        <hr>
+        <form method="post">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" placeholder="username" value="{{ user.username }}">
+                <small class="text-truncate"> update your username </small>
+            </div>
+            <div class="form-group">
+                <label>nom</label>
+                <input type="text" name="nom" class="form-control" placeholder="nom" value="{{ user.nom }}">
+                <small class="text-truncate"> update your name </small>
+            </div>
+            <div class="form-group">
+                <label>prenom</label>
+                <input type="text" name="prenom" class="form-control" placeholder="prenom" value="{{ user.prenom }}">
+                <small class="text-truncate"> update your first name </small>
+            </div>
+            <div class="form-group">
+                <label>adresse</label>
+                <input type="text" name="adresse" class="form-control" placeholder="adresse" value="{{ user.adresse }}">
+                <small class="text-truncate"> update your adresse </small>
+            </div>
+            <div class="form-group">
+                <label>telephone</label>
+                <input type="text" name="tel" class="form-control" placeholder="telephone" value="{{ user.tel }}">
+                <small class="text-truncate"> update your phone number </small>
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" name="password" id="pass" placeholder="password" class="form-control" >
+                <small class="text-truncate"> update your password </small>
+            </div>
+            <div class="form-group">
+                <label>Confirmer Mot de passe</label>
+                <input type="password" name="password_2" id="pass2"  placeholder="password confirmation" class="form-control" >
+                <small id="pass_error"> </small>
+            </div>
+            <div class="col-sm-12 mt" style="text-align: center;"> 
+            <button type="submit" id="submit" class="btn btn-success " name="reg_user" style="margin-right: 3rem;"><i class="fa fa-edit"></i> Modifier </button>
+            <button class="btn btn-primary " type="reset"><i class="fa fa-ban"></i> Annuler </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+
+    <script >
+        pass = document.getElementById("pass");
+        pass2 = document.getElementById("pass2");
+        submit = document.getElementById("submit");
+        small = document.getElementById("pass_error");
+
+        submit.addEventListener("click",function(event){
+            if (pass.value != pass2.value){
+                event.preventDefault();
+                small.textContent = "passwords dosen't match";
+            }
+            else{
+                small.textContent = "";
+            }
+        })
+
+    </script>
+{% endblock %}

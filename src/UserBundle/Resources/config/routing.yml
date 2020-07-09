@@ -1,0 +1,44 @@
+login:
+    path:     /login
+    defaults: { _controller: UserBundle:Login:login }
+
+logout:
+    path:     /logout
+    defaults: { _controller: UserBundle:Login:logout }
+
+pass_recup:
+    path:     /pass_recup
+    defaults: { _controller: UserBundle:Login:recup }
+
+
+index:
+    path:     /
+    defaults: { _controller: UserBundle:Default:index }
+
+user_add:
+    path:     /add_user
+    defaults: { _controller: UserBundle:Default:add_user }
+
+user_update:
+    path:     /update_user/{id}
+    defaults: { _controller: UserBundle:Default:update_user }
+
+user_modif:
+    path:     /modif_user/{id}
+    defaults: { _controller: UserBundle:Default:modif_user }
+
+user_delete_id:
+    path:     /delete_user/{id}
+    defaults: { _controller: UserBundle:Default:delete_user_id }
+
+
+# optionals paths :
+#    this paths are not recommended, please avoid theme
+
+user_delete:
+    path:     /delete_user
+    defaults: { _controller: UserBundle:Default:delete_user }
+
+user_find:
+    path:     /update_user
+    defaults: { _controller: UserBundle:Default:find_user }

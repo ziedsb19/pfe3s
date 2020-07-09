@@ -1,0 +1,173 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-1"></div>
+    {% for message in app.flashes('bss_add') %}
+        <div class="col-sm-10 alert alert-success"> {{ message }} 
+            <button type="button" class=" float-right close" onclick="closeParent(this)" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script>
+                
+                    closeParent = function (item) {
+                        item.parentElement.hidden = true;
+                    }
+                
+            </script>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="row mb">
+    <div class="col-sm-1"> </div>
+    <div id="" class="col-sm-8" >
+        <div class="row"> 
+            <h1 class="col-sm-6" style="color: #222; font-weight: bolder; font-size: large; "><i class="fa fa-wifi"></i>  BSS Stations :</h1>
+            <form method="get" action="" class="col-sm-12" style="margin-top:1rem;">
+                <div class="row">
+                  <div class=" col-sm-9">
+                    <input type="text" id="token" class="form-control" placeholder="please enter your token" required>
+                  </div> 
+                  <div class="col-sm-3">
+                      <button class="btn btn-success col-sm-12" style="font-weight: bolder; " id="valid"> validate token <i class="fa fa-file-code-o"></i></button>
+                  </div> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row"> 
+
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-8" id="map_custom" data-url="{{path('gateway_list')}}" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0); height: 63rem;"> </div>
+    
+    <div class="col-sm-2"  style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0); background-color: white; margin-left:1rem; min-height: 63rem; padding: 1rem 1.5rem ;"> 
+        <h4 style="color: black; font-size: medium;"> BSS cartography  :</h4>
+        <div style="margin-bottom: 1rem;">
+            <small> you need to enter a valid token if you want to update the database with new stations </small>
+        </div>
+        <br class="mt">
+        <div class="text-center">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#station_add" ><i class="fa fa-plus"></i> add new station</button>
+        </div>
+        <div class="modal fade " id="station_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-wifi"></i> Add new station</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{{ path('gateway_add') }}" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>adresse</label>
+                            <input type="text" id="address-input" name="adresse" class="form-control" placeholder="adresse" required>
+                            <small class="text-truncate"> enter your address </small>
+                        </div>
+                         <input type="text" name="lat" id="lat" hidden>
+                         <input type="text" name="lng" id="lng" hidden>   
+                        <script>
+                            var placesAutocomplete = places({
+                              appId: "plH441Z664SE",
+                              apiKey: "ff45356b2997b93d58005cf3bc86e3f3",
+                              container: document.querySelector('#address-input')
+                            }).configure({
+                                    countries: ['tn']}
+                            );
+
+                            placesAutocomplete.on("change", (e)=>{
+                                latlng =  e.suggestion.latlng; 
+                                lat = latlng.lat;
+                                lng = latlng.lng;
+
+                                document.getElementById("lat").value=lat;
+                                document.getElementById("lng").value=lng;    
+
+                            });
+                        </script>
+                        
+                        <div class="form-group">
+                            <label>name</label>
+                            <input type="text" name="name" class="form-control" placeholder="name" required>
+                            <small class="text-truncate"> enter bss name </small>
+                        </div>
+                        <div class="form-group">
+                            <label>model/ commercial name</label>
+                            <select  name="model" class="form-control" required>
+                                <option value="Ufispace Macro V2.0" selected >Ufispace Macro V2.0</option>
+                            </select>
+                            <small class="text-truncate"> enter bss model </small>
+                        </div>
+                        <div class="form-group">
+                            <label>version </label>
+                            <input type="text" name="version" class="form-control" placeholder="version (exp: 2.4.2)" required>
+                            <small class="text-truncate"> update bss version </small>
+                        </div>
+                        <div class="form-group">
+                            <label>vendor </label>
+                            <select  name="vendor" class="form-control" required>
+                                <option value="Ufispace" selected >Ufispace</option>
+                            </select>
+                            <small class="text-truncate"> enter bss vendor </small>
+                        </div>
+                        <div class="form-group">
+                            <label>description </label>
+                            <input type="text" name="description" class="form-control" placeholder="description" >
+                            <small class="text-truncate"> enter bss description </small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-ban"> </i> Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add station</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>    
+</div>
+
+<div class="row" style="margin-top: 2rem;">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10"> 
+        <h1 style="color: #222; font-weight: bolder; font-size: large; "><i class="fa fa-info-circle"></i> detailed informations</h1>
+        <hr>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10 content-panel">
+        <div class="adv-table"></div>
+            <div id="hidden-table-info_wrapper" class="dataTables_wrapper form-inline">
+                <table id="hidden-table-info" class="display table table-bordered dataTable">
+                    <thead>
+                        <tr>
+                            <th>id (click to remove)</th>
+                            <th>name</th>
+                            <th>latitide</th>
+                            <th>longitude</th>
+                            <th>lrrid</th>
+                            <th>state</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .paginate_button{
+        margin-right: 5px;
+    }
+    .paginate_button:hover{
+        cursor: pointer;
+    }
+</style>
+<script src="{{asset('js/gateway.js')}}"></script>
+{% endblock %}

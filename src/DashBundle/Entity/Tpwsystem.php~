@@ -1,0 +1,117 @@
+<?php
+
+namespace DashBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tpwsystem
+ *
+ * @ORM\Table(name="tpwsystem")
+ * @ORM\Entity
+ */
+class Tpwsystem
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="AvCpu", type="integer", nullable=true)
+     */
+    private $avcpu;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="DvCpu", type="integer", nullable=true)
+     */
+    private $dvcpu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="LrcId", type="string", length=255, nullable=true)
+     */
+    private $lrcid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="LrrId", type="string", length=255, nullable=true)
+     */
+    private $lrrid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MemBuffers", type="integer", nullable=true)
+     */
+    private $membuffers;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MemCached", type="integer", nullable=true)
+     */
+    private $memcached;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MemFree", type="integer", nullable=true)
+     */
+    private $memfree;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MemTotal", type="integer", nullable=true)
+     */
+    private $memtotal;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MemUsed", type="integer", nullable=true)
+     */
+    private $memused;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MemUsedBC", type="integer", nullable=true)
+     */
+    private $memusedbc;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="MxCpu", type="integer", nullable=true)
+     */
+    private $mxcpu;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="RamDirUsed", type="integer", nullable=true)
+     */
+    private $ramdirused;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Uptimesys", type="string", length=255, nullable=true)
+     */
+    private $uptimesys;
+
+
+}
+

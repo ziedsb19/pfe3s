@@ -1,0 +1,31 @@
+gateway_homepage:
+    path:     /gateway
+    defaults: { _controller: GatewayBundle:Default:index }
+
+
+gateway_list:
+    path:     /gateway/list
+    defaults: { _controller: GatewayBundle:Default:list }
+
+
+gateway_add:
+    path:     /gateway/add
+    defaults: { _controller: GatewayBundle:Default:add }
+
+
+gateway_heatmap:
+    path:     /gateway/heatmap
+    defaults: { _controller: GatewayBundle:Default:heatmap }
+
+
+gateway_heatmap_list:
+    path:     /gateway/heatmap/list
+    defaults: { _controller: GatewayBundle:Default:heatmap_list }
+
+gateway_fetch_api:
+    path:     /gateway/api/{token}
+    defaults: { _controller: GatewayBundle:Default:fetch_api }
+
+gateway_delete_api:
+    path:     /gateway/delete/{id}
+    defaults: { _controller: GatewayBundle:Default:delete }
